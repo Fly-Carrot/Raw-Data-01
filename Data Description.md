@@ -1,24 +1,24 @@
 Title:
-Data from: Passive Acoustic Monitoring Network Reveals Vegetation Buffering Thresholds in Urban Avian Soundscapes of a Subtropical Megacity
+Data from: Passive Acoustic Monitoring Reveals How Urban Vegetation Creates Acoustic Refuges for Avian Communication in a Subtropical Megacity
 
 Authors:
-Chen Yuhao, Hao Zezhou, Zhang Chengyun, Chen Zihao, Li Le, Zhou Ting, Liu Yang
+Blinded for peer review. Author information will be added after acceptance.
 
 Target journal:
 Journal of Applied Ecology
 
 Description:
-This repository contains the data and code used to analyse how urban soundscape composition and vegetation structure jointly influence vocal behaviour of Orthotomus sutorius in Shenzhen, China.
+This repository contains analysis-ready data and workflow pseudocode used to examine how urban soundscape composition and vegetation structure are associated with vocal behaviour of Orthotomus sutorius in Shenzhen, China.
 
 File descriptions:
-/data/01_minute_level_vocal_traits.csv
-Minute-level vocal traits of Orthotomus sutorius extracted using deep-learning classifiers.
+01_minute_level_vocal_traits.csv
+Minute-level vocal traits of Orthotomus sutorius. Candidate focal-species records were first identified using classifier-based screening and then manually verified and quality-filtered before vocal traits were measured from validated vocal material.
 Each row represents one minute of recording.
 
 Variables:
 site_code – sampling site identifier
 date_full – recording date (YYYY-MM-DD)
-period – breeding stages
+period – sampling-period block
 total_n_calls – number of syllables per minute
 mean_interval – mean inter-syllable interval
 mean_peakfreq – mean peak frequency of syllables
@@ -28,8 +28,8 @@ min_freq – minimum frequency across all syllables
 max_freq – maximum frequency across all syllables
 minute_label – a label containing site code, full recording date and time
 
-/data/02_minute_level_sound_events.csv
-Minute-level sound events time extracted using deep-learning classifiers.
+02_minute_level_sound_events.csv
+Minute-level sound-event durations extracted using deep-learning classifiers.
 Each row represents one minute of recording.
 
 Variables:
@@ -44,7 +44,7 @@ rain – total duration of rain in one minute
 music – total duration of music in one minute
 site – sampling site identifier
 
-/data/03_site_level_vegetation_structure.csv
+03_site_level_vegetation_structure.csv
 Site-level vegetation structural attributes derived from terrestrial LiDAR. All metrics are calculated within a fixed 23 m radius circular plot.
 
 Variables:
@@ -70,7 +70,7 @@ aggregation – Clark–Evans aggregation index, calculated as the ratio of obse
 angle_var – angular uniformity of tree spatial distribution, calculated from the circular variance of tree azimuths relative to the plot center; higher values indicate more even angular distribution
 local_clustering – Neighbourhood Crowding Index (NCI) described in the manuscript, calculated as the coefficient of variation of mean distances to the five nearest neighbors, describing fine-scale spatial heterogeneity in tree spacing
 
-/data/04_site_level_landscape_metrics.csv
+04_site_level_landscape_metrics.csv
 Site-level landscape configuration and anthropogenic pressure metrics derived from GIS (Guidos Toolbox & MSPA) within a 1-km buffer.
 
 Variables:
@@ -90,20 +90,20 @@ MPS_edge – mean patch size of edge areas
 PLAND_islet – proportion of landscape classified as islet patches
 PD_islet – patch density of islet patches
 MPS_islet – mean patch size of islet patches
-PLNAD_gallery – proportion of landscape classified as gallery elements
+PLAND_gallery – proportion of landscape classified as gallery elements
 PD_gallery – patch density of gallery elements
 MPS_gallery – mean patch size of gallery elements
 
-/data/05_site_level_urbanization.csv
+05_site_level_urbanization.csv
 Site-level urbanization intensity and ecological condition metrics within a 1-km buffer.
 
 Variables:
 ISR – Impervious Surface Ratio, representing the proportion of impervious surfaces (e.g., roads, buildings, paved areas) within the 1 km buffer. Higher values indicate stronger urban development intensity and lower landscape permeability
-NDVI – Normailized Difference Vegetation Index, derived from Landsat OLI-8 imagery. NDVI reflects vegetation productivity and canopy greenness. Higher values indicate denser or more photosynthetically active vegetation.
+NDVI – Normalized Difference Vegetation Index, derived from Landsat OLI-8 imagery. NDVI reflects vegetation productivity and canopy greenness. Higher values indicate denser or more photosynthetically active vegetation.
 HQ – Habitat Quality index derived from the InVEST Habitat Quality model. This metric integrates land-cover type and anthropogenic threat layers to estimate relative habitat suitability and ecological integrity. Higher values indicate higher habitat quality and lower human disturbance pressure.
 ALAN – Artificial Light at Night intensity, derived from Luojia-1 nighttime light imagery. Values represent mean nighttime radiance within the 1 km buffer. Higher values indicate stronger nocturnal anthropogenic disturbance.
 
-/data/06_site_level_distance_to_roads.csv
+06_site_level_distance_to_roads.csv
 Site-level proximity to nearest road infrastructure, quantifying potential traffic-related disturbance and noise exposure.
 
 Variables:
@@ -115,13 +115,13 @@ HubDist1 – Euclidean distance from the site to the nearest primary road
 HubName2 – road classification of the nearest secondary road
 HubDist2 – Euclidean distance from the site to the nearest secondary road
  
-/data/07_blmm_analysis_dataset.csv
+07_blmm_analysis_dataset.csv
 Site-minute level dataset used for Bayesian Linear Mixed Models. This dataset contains minute-resolution acoustic and soundscape metrics used to quantify immediate vocal responses to real-time soundscape composition. Each row represents a 1-minute recording segment from a given site and date.
 
 Variables:
 site_code – sampling site identifier
 date_full – full sampling date
-period – sampling period classification
+period – sampling-period block
 minute_hm – recording start time (HHMM format)
 minute_label – unique identifier for each minute segment
 base_time – full timestamp identifier (site + date + time)
@@ -152,8 +152,8 @@ constant_strength – relative intensity of constant events
 pulse_strength – relative intensity of pulsed events
 structural_strength – relative intensity of structured events
 
-/data/08_gam_analysis_dataset.csv
-Site-period dataset used for Generalized Additive Models. This dataset contains site-period level vocal metrics aggregated by breeding period and associated habitat structure variables. Each row represents a site × breeding stage combination.
+08_gam_analysis_dataset.csv
+Site-period dataset used for Generalized Additive Models. This dataset contains site-period level vocal metrics aggregated by sampling-period block and associated habitat structure variables. Each row represents a site × sampling-period block combination.
 
 Variables:
 mean_calls – mean number of syllables per minute
@@ -169,14 +169,14 @@ MPS_gallery – mean patch size of gallery elements
 dist1 – Euclidean distance from the site to the nearest primary road
 dist2 – Euclidean distance from the site to the nearest secondary road
 ISR – Impervious Surface Ratio
-LAI_understory – leaf area index contributed by vegetation with tree height ≤ 5m
-mean_crown_ratio – mean crown ratio mentioned above
+LAI_understory – leaf area index contributed by vegetation with tree height ≤ 5 m
+mean_crown_ratio – mean crown ratio, calculated as crown diameter divided by total tree height
 
-/data/Common Tailorbird Sample Audio (Denoised).wav
+Common Tailorbird Sample Audio (Denoised).wav
 
 A sample audio of the focal species (Common Tailorbird).
 
-This file contains a representative field recording of the focal species used in this study. The audio was post-processed using Adobe Audition to reduce background noise for clarity.
+This file is an illustrative denoised sample of the focal species. It is provided to demonstrate vocal characteristics and was not used for quantitative analysis. The audio was post-processed using Adobe Audition to reduce background noise for clarity.
 
 Notes:
 Raw audio recordings and LiDAR point clouds are not included due to data volume and privacy constraints.
