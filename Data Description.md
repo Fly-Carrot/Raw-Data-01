@@ -1,182 +1,164 @@
-Title:
-Data from: Passive Acoustic Monitoring Reveals How Urban Vegetation Creates Acoustic Refuges for Avian Communication in a Subtropical Megacity
+# Data Description
 
-Authors:
-Blinded for peer review. Author information will be added after acceptance.
+Title: Data and analysis workflow for "Passive Acoustic Monitoring Reveals How Urban Vegetation Supports Acoustic Refuges for Avian Communication in a Subtropical Megacity"
 
-Target journal:
-Journal of Applied Ecology
+Target journal: *Journal of Applied Ecology*
 
-Description:
-This repository contains analysis-ready data and workflow pseudocode used to examine how urban soundscape composition and vegetation structure are associated with vocal behaviour of Orthotomus sutorius in Shenzhen, China.
+Authors: Blinded for peer review. Author information can be added after acceptance.
 
-File descriptions:
-01_minute_level_vocal_traits.csv
-Minute-level vocal traits of Orthotomus sutorius. Candidate focal-species records were first identified using classifier-based screening and then manually verified and quality-filtered before vocal traits were measured from validated vocal material.
-Each row represents one minute of recording.
+## Overview
 
-Variables:
-site_code – sampling site identifier
-date_full – recording date (YYYY-MM-DD)
-period – sampling-period block
-total_n_calls – number of syllables per minute
-mean_interval – mean inter-syllable interval
-mean_peakfreq – mean peak frequency of syllables
-mean_bandw – mean bandwidth of syllables
-mean_centroid – mean centroid frequency of syllables
-min_freq – minimum frequency across all syllables
-max_freq – maximum frequency across all syllables
-minute_label – a label containing site code, full recording date and time
+This repository contains analysis-ready data used to examine how urban soundscape composition and vegetation structure are associated with vocal behaviour of the Common Tailorbird (*Orthotomus sutorius*) in Shenzhen, China.
 
-02_minute_level_sound_events.csv
-Minute-level sound-event durations extracted using deep-learning classifiers.
-Each row represents one minute of recording.
+The public data package is divided into:
+
+- `Raw data/`: processed analysis-ready CSV tables and one illustrative denoised sample audio file;
+- `Supplementary Data/`: Excel workbooks corresponding to supplementary data files cited in the manuscript;
+- `R/`: cleaned R workflow scripts aligned with the manuscript analysis sequence.
+
+The full raw audio archive, raw sound-event outputs, raw LiDAR point clouds and local GIS workspaces are not included because of data volume, site/privacy constraints and processing dependencies.
+
+## Raw Data Tables
+
+### `Raw data/01_minute_level_vocal_traits.csv`
+
+Minute-level vocal traits of *O. sutorius*. Candidate focal-species records were first identified using classifier-based screening and then manually verified and quality-filtered before vocal traits were measured from validated vocal material. Each row represents one minute of recording.
 
 Variables:
-base_time – a label containing site code, full recording date and time, same format as minute_label above
-car_driving – total duration of traffic in one minute
-frog – total duration of frog sound in one minute
-insect – total duration of insect sound in one minute
-car_horn – total duration of horn sound in one minute
-human_voice – total duration of speech in one minute
-human_knocking – total duration of knocking in one minute
-rain – total duration of rain in one minute
-music – total duration of music in one minute
-site – sampling site identifier
 
-03_site_level_vegetation_structure.csv
-Site-level vegetation structural attributes derived from terrestrial LiDAR. All metrics are calculated within a fixed 23 m radius circular plot.
+- `site_code`: sampling site identifier.
+- `date_full`: recording date.
+- `period`: sampling-period block.
+- `minute_hm`: recording start time in HHMM format.
+- `n_segments`: number of validated vocal segments in the minute.
+- `total_n_calls`: number of syllables per minute.
+- `mean_interval`: mean inter-syllable interval.
+- `mean_peakfreq`: mean peak frequency of syllables.
+- `mean_bandw`: mean bandwidth of syllables.
+- `mean_centroid`: mean centroid frequency of syllables.
+- `min_freq`: minimum frequency across syllables.
+- `max_freq`: maximum frequency across syllables.
+- `minute_label`: site-date-minute identifier.
 
-Variables:
-site_code – sampling site identifier
-LAI_0to2 – leaf area index contributed by vegetation with tree height ≤ 2m
-LAI_2to5 – leaf area index contributed by vegetation with tree height > 2 m and ≤ 5 m
-LAI_5to10 – leaf area index contributed by vegetation with tree height > 5 m and ≤ 10 m
-LAI_10to15 – leaf area index contributed by vegetation with tree height > 10 m and ≤ 15 m
-LAI_15to20 – leaf area index contributed by vegetation with tree height > 15 m and ≤ 20 m
-LAI_over20 – leaf area index contributed by vegetation with tree height > 20 m
-height_range – vertical range of vegetation height, calculated as the difference between maximum and minimum tree height (m)
-height_diversity – coefficient of variation of tree height (standard deviation divided by mean), representing vertical structural heterogeneity
-mean_dbh – mean DBH of all trees within the site (m)
-DBH0to5 – proportion of total basal area contributed by trees with DBH between 0 and 5 cm
-DBH5to10 – proportion of total basal area contributed by trees with DBH between 5 and 10 cm
-DBH10to30 – proportion of total basal area contributed by trees with DBH between 10 and 30 cm
-DBH30to50 – proportion of total basal area contributed by trees with DBH between 30 and 50 cm
-DBHover50 – proportion of total basal area contributed by trees with DBH greater than 50 cm
-mean_crown_ratio – mean crown ratio, calculated as crown diameter divided by total tree height, reflecting crown development and lateral expansion
-crown_cover – canopy cover, calculated as the summed projected crown area divided by plot ground area
-crown_vol_density – canopy volume density, calculated as the summed crown volume normalized by plot ground area
-aggregation – Clark–Evans aggregation index, calculated as the ratio of observed mean nearest-neighbor distance to the expected distance under complete spatial randomness; values < 1 indicate clustering, values > 1 indicate regularity
-angle_var – angular uniformity of tree spatial distribution, calculated from the circular variance of tree azimuths relative to the plot center; higher values indicate more even angular distribution
-local_clustering – Neighbourhood Crowding Index (NCI) described in the manuscript, calculated as the coefficient of variation of mean distances to the five nearest neighbors, describing fine-scale spatial heterogeneity in tree spacing
+### `Raw data/02_minute_level_sound_events.csv`
 
-04_site_level_landscape_metrics.csv
-Site-level landscape configuration and anthropogenic pressure metrics derived from GIS (Guidos Toolbox & MSPA) within a 1-km buffer.
+Minute-level sound-event durations extracted using deep-learning classifiers. Each row represents one minute of recording.
 
 Variables:
-PLAND_gs – proportion of landscape occupied by greenspace
-PD_gs – patch density of greenspace, representing fragmentation intensity
-ED_gs – edge density of greenspace, representing the amount of habitat edge relative to landscape area
-MPS_gs – mean patch size of greenspace
-ENN_gs – mean Euclidean nearest-neighbour distance among greenspace patches, describing patch isolation
-COHESION_gs – patch cohesion index, reflecting connectedness of greenspace
-MESH_gs – effective mesh size, representing landscape connectivity and probability that two randomly chosen points fall within the same connected habitat patch
-PLAND_core – proportion of landscape classified as core greenspace
-PD_core – patch density of core areas
-MPS_core – mean patch size of core areas
-PLAND_edge – proportion of landscape classified as edge habitat
-PD_edge – patch density of edge areas
-MPS_edge – mean patch size of edge areas
-PLAND_islet – proportion of landscape classified as islet patches
-PD_islet – patch density of islet patches
-MPS_islet – mean patch size of islet patches
-PLAND_gallery – proportion of landscape classified as gallery elements
-PD_gallery – patch density of gallery elements
-MPS_gallery – mean patch size of gallery elements
 
-05_site_level_urbanization.csv
-Site-level urbanization intensity and ecological condition metrics within a 1-km buffer.
+- `base_time`: site-date-minute identifier used for joining with vocal-trait records.
+- `car_driving`: duration of traffic sound within the minute.
+- `frog`: duration of frog sound within the minute.
+- `insect`: duration of insect sound within the minute.
+- `car_horn`: duration of horn sound within the minute.
+- `bird`: duration of bird sound within the minute.
+- `human_voice`: duration of speech within the minute.
+- `human_knocking`: duration of knocking sound within the minute.
+- `rain`: duration of rain within the minute.
+- `music`: duration of music within the minute.
+- `site`: sampling site identifier.
 
-Variables:
-ISR – Impervious Surface Ratio, representing the proportion of impervious surfaces (e.g., roads, buildings, paved areas) within the 1 km buffer. Higher values indicate stronger urban development intensity and lower landscape permeability
-NDVI – Normalized Difference Vegetation Index, derived from Landsat OLI-8 imagery. NDVI reflects vegetation productivity and canopy greenness. Higher values indicate denser or more photosynthetically active vegetation.
-HQ – Habitat Quality index derived from the InVEST Habitat Quality model. This metric integrates land-cover type and anthropogenic threat layers to estimate relative habitat suitability and ecological integrity. Higher values indicate higher habitat quality and lower human disturbance pressure.
-ALAN – Artificial Light at Night intensity, derived from Luojia-1 nighttime light imagery. Values represent mean nighttime radiance within the 1 km buffer. Higher values indicate stronger nocturnal anthropogenic disturbance.
+### `Raw data/03_site_level_vegetation_structure.csv`
 
-06_site_level_distance_to_roads.csv
-Site-level proximity to nearest road infrastructure, quantifying potential traffic-related disturbance and noise exposure.
+Site-level vegetation structural attributes derived from terrestrial LiDAR. Metrics are calculated within a fixed circular plot around each recorder.
 
-Variables:
-site_code – sampling site identifier
-Latitude – geographic latitude of the recording site (WGS84)
-Longitude – geographic longitude of the recording site (WGS84)
-HubName1 – road classification of the nearest primary road
-HubDist1 – Euclidean distance from the site to the nearest primary road
-HubName2 – road classification of the nearest secondary road
-HubDist2 – Euclidean distance from the site to the nearest secondary road
- 
-07_blmm_analysis_dataset.csv
-Site-minute level dataset used for Bayesian Linear Mixed Models. This dataset contains minute-resolution acoustic and soundscape metrics used to quantify immediate vocal responses to real-time soundscape composition. Each row represents a 1-minute recording segment from a given site and date.
+Variables include:
 
-Variables:
-site_code – sampling site identifier
-date_full – full sampling date
-period – sampling-period block
-minute_hm – recording start time (HHMM format)
-minute_label – unique identifier for each minute segment
-base_time – full timestamp identifier (site + date + time)
-hour – hour of day
-minute – minute of hour
-time_decimal – decimal time representation (used for smooth diel modeling)
-n_segments – number of detected vocal segments
-total_n_calls – total number of syllables within the minute
-mean_interval – mean interval between consecutive syllables (s)
-mean_peakfreq – mean peak frequency (Hz)
-mean_bandw – mean bandwidth (Hz)
-mean_centroid – mean spectral centroid frequency (Hz)
-min_freq – minimum frequency (Hz)
-max_freq – maximum frequency (Hz)
-car_driving – duration of vehicle driving noise
-car_horn – duration of horn events
-human_voice – duration of human speech
-human_knocking – duration of knocking noise
-music – duration of music
-rain – duration of rainfall
-frog – duration of frog vocalization
-insect – duration of insect sound
-bird – duration of bird vocal activity
-low_freq_strength – relative intensity of low-to-mid frequency events
-mid_high_freq_strength – relative intensity of mid-to-high frequency events
-low_mid_high_freq_strength – relative intensity of broadband events
-constant_strength – relative intensity of constant events
-pulse_strength – relative intensity of pulsed events
-structural_strength – relative intensity of structured events
+- `site_code`: sampling site identifier.
+- `LAI_0to2`, `LAI_2to5`, `LAI_5to10`, `LAI_10to15`, `LAI_15to20`, `LAI_over20`: leaf area index by vertical stratum.
+- `height_range`: vertical range of vegetation height.
+- `height_diversity`: coefficient of variation of tree height.
+- `mean_dbh`: mean tree diameter at breast height.
+- `DBH0to5`, `DBH5to10`, `DBH10to30`, `DBH30to50`, `DBHover50`: proportional basal-area contributions by DBH class.
+- `mean_crown_ratio`: crown diameter divided by tree height.
+- `crown_cover`: summed projected crown area divided by plot ground area.
+- `crown_vol_density`: summed crown volume normalized by plot ground area.
+- `aggregation`: Clark-Evans aggregation index.
+- `angle_var`: angular uniformity of tree spatial distribution.
+- `local_clustering`: neighbourhood crowding index used in the manuscript as NCI.
 
-08_gam_analysis_dataset.csv
-Site-period dataset used for Generalized Additive Models. This dataset contains site-period level vocal metrics aggregated by sampling-period block and associated habitat structure variables. Each row represents a site × sampling-period block combination.
+### `Raw data/04_site_level_landscape_metrics.csv`
+
+Site-level landscape composition and configuration metrics derived from GIS/MSPA processing within a 1-km buffer.
+
+Variables include:
+
+- `site_code`: sampling site identifier.
+- `PLAND_gs`, `PD_gs`, `ED_gs`, `MPS_gs`, `ENN_gs`, `COHESION_gs`, `MESH_gs`: greenspace composition, fragmentation and connectivity metrics.
+- `PLAND_core`, `PD_core`, `MPS_core`: MSPA core metrics.
+- `PLAND_edge`, `PD_edge`, `MPS_edge`: MSPA edge metrics.
+- `PLAND_islet`, `PD_islet`, `MPS_islet`: MSPA islet metrics.
+- `PLAND_gallery`, `PD_gallery`, `MPS_gallery`: merged loop/bridge/branch gallery metrics.
+
+### `Raw data/05_site_level_urbanization.csv`
+
+Site-level urbanization intensity and ecological-context metrics within a 1-km buffer.
 
 Variables:
-mean_calls – mean number of syllables per minute
-mean_interval – mean interval between consecutive syllables (s)
-mean_peakfreq – mean peak frequency (Hz)
-mean_bandw – mean bandwidth (Hz)
-mean_centroid – mean spectral centroid frequency (Hz)
-min_freq – minimum frequency (Hz)
-max_freq – maximum frequency (Hz)
-PLAND_gs – proportion of landscape occupied by greenspace
-MPS_edge – mean patch size of edge areas
-MPS_gallery – mean patch size of gallery elements
-dist1 – Euclidean distance from the site to the nearest primary road
-dist2 – Euclidean distance from the site to the nearest secondary road
-ISR – Impervious Surface Ratio
-LAI_understory – leaf area index contributed by vegetation with tree height ≤ 5 m
-mean_crown_ratio – mean crown ratio, calculated as crown diameter divided by total tree height
 
-Common Tailorbird Sample Audio (Denoised).wav
+- `site_code`: sampling site identifier.
+- `ISR`: impervious surface ratio.
+- `NDVI`: normalized difference vegetation index.
+- `HQ`: general InVEST habitat-quality index.
+- `ALAN`: artificial light at night intensity.
 
-A sample audio of the focal species (Common Tailorbird).
+### `Raw data/06_site_level_distance_to_roads.csv`
 
-This file is an illustrative denoised sample of the focal species. It is provided to demonstrate vocal characteristics and was not used for quantitative analysis. The audio was post-processed using Adobe Audition to reduce background noise for clarity.
+Site-level proximity to nearest primary and secondary roads.
 
-Notes:
-Raw audio recordings and LiDAR point clouds are not included due to data volume and privacy constraints.
+Variables:
+
+- `site_code`: sampling site identifier.
+- `Latitude`, `Longitude`: geographic coordinates.
+- `HubName1`, `HubDist1`: nearest primary-road class and distance.
+- `HubName2`, `HubDist2`: nearest secondary-road class and distance.
+
+### `Raw data/07_blmm_analysis_dataset.csv`
+
+Site-minute dataset used for Bayesian Linear Mixed Models. This table combines minute-level vocal traits and soundscape predictors.
+
+Key variables:
+
+- vocal traits: `total_n_calls`, `mean_interval`, `mean_peakfreq`, `mean_bandw`, `mean_centroid`, `min_freq`, `max_freq`;
+- sound-event durations: `car_driving`, `car_horn`, `human_voice`, `human_knocking`, `music`, `rain`, `frog`, `insect`, `bird`;
+- aggregated spectral predictors: `low_freq_strength`, `mid_high_freq_strength`, `low_mid_high_freq_strength`;
+- aggregated temporal predictors: `constant_strength`, `pulse_strength`, `structural_strength`;
+- temporal covariates: `hour`, `minute`, `time_decimal`;
+- grouping covariates: `site_code`, `period`, `date_full`.
+
+### `Raw data/08_gam_analysis_dataset.csv`
+
+Site-period dataset used for Generalized Additive Models. This table combines aggregated vocal traits and habitat predictors.
+
+Key variables:
+
+- vocal traits: `mean_calls`, `mean_interval`, `mean_peakfreq`, `mean_bandw`, `mean_centroid`, `min_freq`, `max_freq`;
+- landscape predictors: `PLAND_gs`, `MPS_edge`, `MPS_gallery`;
+- site and period fields: `site_code`, `period`;
+- urban and habitat predictors: `ISR`, `LAI_understory`, `mean_crown_ratio`, `local_clustering`, `height_range`, `dist1`, `dist2`.
+
+### `Raw data/Common Tailorbird Sample Audio (Denoised).wav`
+
+Illustrative denoised sample audio of the focal species. This file demonstrates vocal characteristics and was not used for quantitative analysis.
+
+## Supplementary Data Workbooks
+
+### `Supplementary Data/Supplementary_Data_S1.xlsx`
+
+Spatiotemporal vocal-trait tests, including PERMANOVA/Kruskal-Wallis outputs and related summaries.
+
+### `Supplementary Data/Supplementary_Data_S2.xlsx`
+
+Candidate-detection and confidence-threshold bias diagnostics. Workbook sheets include a README, detection-universe summaries, confidence-count summaries and soundscape comparisons between below-threshold and retained candidate detections.
+
+### `Supplementary Data/Supplementary_Data_S3.xlsx`
+
+Spatial autocorrelation diagnostics for selected model residuals or site-level variables.
+
+### `Supplementary Data/Supplementary_Data_S4.xlsx`
+
+Retained-data confidence-threshold sensitivity summaries for the BLMM and GAM analyses. Workbook sheets include BLMM fixed effects, BLMM sign stability, BLMM diagnostics, GAM summaries, GAM smooth changes and the GAM site-period input used for sensitivity checks.
+
+## R Scripts
+
+The `R/` folder contains cleaned, ordered scripts for public reproducibility from the analysis-ready tables. They document the model workflow without requiring local raw audio archives, LiDAR point clouds or private machine paths. Long-running model refits require explicit `RUN_MODELS=true`.

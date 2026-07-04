@@ -362,14 +362,25 @@ Interpretation:
 
 ```text
 Public repository outputs:
-    01_minute_level_vocal_traits.csv
-    02_minute_level_sound_events.csv
-    03_site_level_vegetation_structure.csv
-    04_site_level_landscape_metrics.csv
-    05_site_level_urbanization.csv
-    06_site_level_distance_to_roads.csv
-    07_blmm_analysis_dataset.csv
-    08_gam_analysis_dataset.csv
+    Raw data/01_minute_level_vocal_traits.csv
+    Raw data/02_minute_level_sound_events.csv
+    Raw data/03_site_level_vegetation_structure.csv
+    Raw data/04_site_level_landscape_metrics.csv
+    Raw data/05_site_level_urbanization.csv
+    Raw data/06_site_level_distance_to_roads.csv
+    Raw data/07_blmm_analysis_dataset.csv
+    Raw data/08_gam_analysis_dataset.csv
+    Raw data/Common Tailorbird Sample Audio (Denoised).wav
+    Supplementary Data/Supplementary_Data_S1.xlsx
+    Supplementary Data/Supplementary_Data_S2.xlsx
+    Supplementary Data/Supplementary_Data_S3.xlsx
+    Supplementary Data/Supplementary_Data_S4.xlsx
+    R/00_setup.R
+    R/01_data_checks_and_joins.R
+    R/02_spatiotemporal_tests.R
+    R/03_blmm_soundscape_models.R
+    R/04_gam_habitat_models.R
+    R/05_supplementary_sensitivity_summaries.R
     Data Description.md
     README.md
     analysis_workflow_pseudocode.md
